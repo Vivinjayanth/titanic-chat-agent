@@ -14,7 +14,8 @@ def process_query(question: str) -> dict:
         
         llm = ChatGroq(
             temperature=0,
-            model_name="llama-3.3-70b-versatile",
+            # Switched to a more token-efficient model
+            model_name="llama-3.1-8b-instant", 
             api_key=os.getenv("GROQ_API_KEY")
         )
 
@@ -22,18 +23,18 @@ def process_query(question: str) -> dict:
             llm, 
             df, 
             verbose=True,
+            # tool-calling is more reliable and token-efficient
+            agent_type="tool-calling", 
             allow_dangerous_code=True,
-            handle_parsing_errors=True,
         )
         
         prompt = f"""
         Question: {question}
 
-        STRICT INSTRUCTIONS:
-        1. You MUST begin your response with the phrase "Final Answer: " and give a little detailed explanation around this final answer.
-        2. If the user asks for a fact or statistic, give a text-only response after "Final Answer: ".
-        3. If the user asks for a chart or visualization, provide the Python code after "Final Answer: " wrapped in ```python blocks.
-        4. For histograms, include a title, x-axis label, y-axis label, and black edge colors.
+        Instructions:
+        1. Provide a detailed 2-3 sentence explanation of your findings.
+        2. If a visualization is requested, explain the data first, then provide the ```python code.
+        3. Histograms must include a title, x-axis label, y-axis label, and black edge colors.
         """
         
         response = agent.invoke(prompt)
