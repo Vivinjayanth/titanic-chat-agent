@@ -30,7 +30,7 @@ def process_query(question: str) -> dict:
         Question: {question}
 
         STRICT INSTRUCTIONS:
-        1. You MUST begin your response with the phrase "Final Answer: ".
+        1. You MUST begin your response with the phrase "Final Answer: " and give a little detailed explanation around this final answer.
         2. If the user asks for a fact or statistic, give a text-only response after "Final Answer: ".
         3. If the user asks for a chart or visualization, provide the Python code after "Final Answer: " wrapped in ```python blocks.
         4. For histograms, include a title, x-axis label, y-axis label, and black edge colors.
