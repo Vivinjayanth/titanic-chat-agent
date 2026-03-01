@@ -24,7 +24,6 @@ def process_query(question: str) -> dict:
             verbose=True,
             allow_dangerous_code=True,
             handle_parsing_errors=True,
-            suffix="Begin! You must always start your final response with 'Final Answer: ' and provide a detailed 2-3 sentence explanation."
         )
         
         prompt = f"""
