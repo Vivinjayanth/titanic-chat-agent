@@ -29,11 +29,11 @@ def process_query(question: str) -> dict:
         prompt = f"""
         Question: {question}
 
-        STRICT INSTRUCTIONS:
-        1. You MUST begin your response with the phrase "Final Answer: ".
-        2. If the user asks for a fact or statistic, give a text-only response after "Final Answer: ".
-        3. If the user asks for a chart or visualization, provide the Python code after "Final Answer: " wrapped in ```python blocks.
-        4. For histograms, include a title, x-axis label, y-axis label, and black edge colors.
+        STRICT INSTRUCTIONS FOR YOUR FINAL ANSWER:
+        1. You MUST begin your response with "Final Answer: ".
+        2. Provide a detailed and conversational response. Instead of just a number, explain what the data shows in 2-3 sentences.
+        3. If the user asks for a visualization, explain what the chart represents before providing the ```python code block.
+        4. For any histograms requested, always include a title, x-axis label, y-axis label, and black edge colors for the bars.
         """
         
         response = agent.invoke(prompt)
