@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+langchain
+langchain-experimental
+langchain-groq
+langchain-google-genai
+pandas
+python-dotenv
+tabulate
