@@ -22,19 +22,18 @@ def process_query(question: str) -> dict:
             llm, 
             df, 
             verbose=True,
+            agent_type="tool-calling", # This avoids the Thought/Action parsing errors
             allow_dangerous_code=True,
-            handle_parsing_errors=True,
-            suffix="Begin! You must always start your final response with 'Final Answer: ' and provide a detailed 2-3 sentence explanation."
+            handle_parsing_errors=True
         )
         
         prompt = f"""
         User Question: {question}
 
-        Follow these rules strictly:
-        - Your response must start with 'Final Answer: '.
-        - Provide a conversational, detailed 2-3 sentence explanation of the data found.
-        - If a chart is requested, include the detailed explanation, then the ```python code block.
-        - Histograms must have a title, x-axis label, y-axis label, and black edge colors.
+        Instructions:
+        1. Provide a detailed 2-3 sentence explanation of your findings.
+        2. If a visualization is requested, explain the data first, then provide the ```python code.
+        3. Histograms must include a title, x-axis label, y-axis label, and black edge colors.
         """
         
         response = agent.invoke(prompt)
