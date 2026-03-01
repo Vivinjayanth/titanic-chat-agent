@@ -23,20 +23,18 @@ def process_query(question: str) -> dict:
             df, 
             verbose=True,
             allow_dangerous_code=True,
-            handle_parsing_errors=True
+            handle_parsing_errors=True,
+            suffix="Begin! You must always start your final response with 'Final Answer: ' and provide a detailed 2-3 sentence explanation."
         )
         
         prompt = f"""
         User Question: {question}
 
-        YOU MUST FOLLOW THESE RULES:
-        1. Start your response exactly with "Final Answer: ". 
-        2. Provide a detailed, 2-3 sentence explanation of the data.
-        3. If the user asks for a chart, include the explanation first, then the ```python code block.
-        4. For histograms, include a title, x-axis label, y-axis label, and black edge colors.
-
-        Example of a correct response:
-        Final Answer: There were 577 male passengers on the Titanic. This indicates that males made up approximately 65% of the total passengers on the ship.
+        Follow these rules strictly:
+        - Your response must start with 'Final Answer: '.
+        - Provide a conversational, detailed 2-3 sentence explanation of the data found.
+        - If a chart is requested, include the detailed explanation, then the ```python code block.
+        - Histograms must have a title, x-axis label, y-axis label, and black edge colors.
         """
         
         response = agent.invoke(prompt)
