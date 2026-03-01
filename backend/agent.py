@@ -27,12 +27,13 @@ def process_query(question: str) -> dict:
         )
         
         prompt = f"""
-        Answer the following question: {question}
+        Question: {question}
 
-        CRITICAL INSTRUCTIONS FOR YOUR FINAL ANSWER:
-        1. If the question does NOT explicitly ask for a plot, chart, or visualization, provide a text-only Final Answer. Do NOT output any Python code.
-        2. ONLY IF the question explicitly asks for a visualization, provide the Python code in your Final Answer wrapped strictly in ```python and ``` blocks. Use matplotlib.pyplot as plt. Do not include plt.show().
-        3. If the requested visualization is a histogram, you MUST include a title, x-axis label, y-axis label, and set the edge color to black (e.g., edgecolor='black').
+        STRICT INSTRUCTIONS:
+        1. You MUST begin your response with the phrase "Final Answer: ".
+        2. If the user asks for a fact or statistic, give a text-only response after "Final Answer: ".
+        3. If the user asks for a chart or visualization, provide the Python code after "Final Answer: " wrapped in ```python blocks.
+        4. For histograms, include a title, x-axis label, y-axis label, and black edge colors.
         """
         
         response = agent.invoke(prompt)
